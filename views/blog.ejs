@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head') %>
+  </head>
+<style>
+  pre {
+    white-space: pre-wrap; 
+    word-wrap: break-word; 
+    overflow-x: auto;      
+    max-width: 100%;       
+  }
+
+  .text-center img {
+    max-width: 100%; /* Ensures image is responsive */
+    height: auto;
+  }
+  
+</style>
+
+</style>
+  <body>
+    <%- include('./partials/navbar') %>
+    <h1> <%= Blog.title %> </h1>
+    <div class="text-center">
+      <img src="<%=Blog.imagesUrl %>"class="img-fluid" width="500px" alt="">
+    </div>
+   <pre><%= Blog.description %></pre>
+   <div class="author-info">
+    <img src="<%=Blog.createdBy.profileImageUrl %>"class="img-fluid" width="50px" alt="">
+    <span><%=Blog.createdBy.fullname %></span>
+    <hr>
+  </div>
+  <div class="container">
+    <h2>Comments <%= (comment.length)%></h2>
+    <% if (locals.user) { %>
+      <form action="/blog/comment/<%= Blog._id %>" method="post"class="w-50" >
+        <div class="mb-3">
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="content" itemid="content" placeholder="leave your messageleave your message"></textarea>
+        </div>
+        <div class="d-flex justify-content-center">
+          <button type="submit" class="btn btn-primary btn-sm">Comment</button>
+        </div>
+      </form>
+    <% }  %>
+<div class="container">
+  <% comment.forEach(user => { %>
+    <div class="author-info">
+      <img src="<%=user.createdBy.profileImageUrl %>"class="img-fluid" width="50px" alt="">
+      <span><%=user.createdBy.fullname %></span>
+      <p><%=user.content%></p>
+    </div>
+  <% }) %>
+</div>
+  
+  </body>
+  <%- include('./partials/script') %>
+</html>
