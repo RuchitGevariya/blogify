@@ -3,8 +3,6 @@ import { Comment } from "../Models/comment.js";
 import cloudinary from "../CloudConfigration/cloud.js"
 export async function HandleAddBlog(req, res) {
   try{
-
-  
   const { title, description } = req.body;
   if (!title ||!description) {
     return res
@@ -14,7 +12,6 @@ export async function HandleAddBlog(req, res) {
   if(!req.files||!req.files.coverImage){
     return res.status(400).render("addBlog",{error:"image are required"})
   }
-  console.log(req.files)
  const file= req.files.coverImage
  const result= await cloudinary.uploader.upload(file.tempFilePath,{
   folder:"blog_images",
@@ -29,7 +26,9 @@ export async function HandleAddBlog(req, res) {
 
   return res.redirect(`/blog/${newBlog._id}`);
 } catch(error){
+  console.error(error)
   return res.render("addBlog",{error:"internal server issue please try again later"})
+
 }
 }
 
