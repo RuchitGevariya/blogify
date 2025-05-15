@@ -27,7 +27,8 @@ app.use(cookie())
 app.use(express.static(path.resolve("./public")))
 app.use(fileupload({
   useTempFiles:true,
-  tempFileDir:"/temp/"
+  tempFileDir:path.join(__dirname,'tmp'),
+  createParentPath:true
 }))
 // main routes
 app.use("/user", userRouter);
