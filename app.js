@@ -9,7 +9,7 @@ import {checkAuth} from "./Middleware/auth.js"
 import staticRouter from "./Routes/staticRouter.js"
 import addBlogesRouter from "./Routes/addBlogRouter.js"
 import fileupload from 'express-fileupload';
-
+import {fileURLToPath} from "url"
 //db connected
 mongoose
   .connect(process.env.Mongoose_url)
@@ -19,7 +19,9 @@ mongoose
 //view engine
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
-
+//path
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 //middleware 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
