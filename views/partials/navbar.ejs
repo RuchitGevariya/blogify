@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary"data-bs-theme="dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Blogify</a>
+    <a class="navbar-brand" href="/">Blogify</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -38,10 +38,13 @@
 
 <% if (locals.error) { %>
   <div class="container my-4">
-   <div class="alert alert-danger alert-dismissible fade show" role="alert">
-     <%= locals.error %>
-     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-   </div>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <%= JSON.stringify(error) %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
   </div>
- <% } %>
+<% } %>
+
+
+
  

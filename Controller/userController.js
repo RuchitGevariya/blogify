@@ -23,7 +23,7 @@ export async function HandleSignup(req,res) {
 export async function HandleLogin(req,res) {
   const { email, password } = req.body;
   if (!email || !password) { 
-    return res.status(400).json({ message: "bad request" });
+    return res.status(400).json({ message: "all fields are required" });
   }
   const user = await User.findOne({ email });
   if (!user) {
@@ -42,7 +42,7 @@ export async function HandleLogin(req,res) {
   }
 res.cookie("uid",token,{
   httpOnly:true,
-  maxAge:900000,
+  maxAge:7*24*60*60*1000,
   secure:true,
 })
 return res.redirect("/")

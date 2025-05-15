@@ -4,7 +4,7 @@ import fs from "fs/promises";
 export async function checkAuth(req, res, next) {
   const token = req.cookies?.uid;
   if (!token) {
-    return res.redirect("/login?error:please+login")
+    return res.redirect("/login")
   }
   const user = getuser(token);
   if (!user) {

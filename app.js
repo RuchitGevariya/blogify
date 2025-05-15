@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import express from "express";
+import express, { json } from "express";
 const app = express();
 import path from "path";
 import userRouter from "./Routes/user.js";
@@ -8,7 +8,7 @@ import cookie from "cookie-parser"
 import {checkAuth} from "./Middleware/auth.js"
 import staticRouter from "./Routes/staticRouter.js"
 import addBlogesRouter from "./Routes/addBlogRouter.js"
-
+import fileupload from 'express-fileupload';
 
 //db connected
 mongoose
@@ -16,21 +16,23 @@ mongoose
   .then(() => console.log("DB connected"))
   .catch((error) => console.error(error));
 
-
 //view engine
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
 
 //middleware 
+app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
 app.use(cookie())
 app.use(express.static(path.resolve("./public")))
-
+app.use(fileupload({
+  useTempFiles:true,
+  tempFileDir:"/temp/"
+}))
 // main routes
 app.use("/user", userRouter);
 app.use("/",staticRouter)
 app.use("/blog",checkAuth,addBlogesRouter )
-
 
 const Port = process.env.PORT||8000; 
 app.listen(Port, () => {
